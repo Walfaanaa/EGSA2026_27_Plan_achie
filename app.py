@@ -35,19 +35,44 @@ else:
         """,
         unsafe_allow_html=True,
     )
-# =============================
-# Upload Excel
-# =============================
-uploaded = st.file_uploader(
-    "Upload EGSA Excel File",
-    type=["xlsx", "xls"]
+# =====================================
+# LOAD DATA
+# =====================================
+
+st.sidebar.header("📂 Data Source")
+
+data_source = st.sidebar.radio(
+    "Choose data source:",
+    (
+        "Use GitHub Excel File",
+        "Upload Excel File"
+    )
 )
 
-if uploaded is None:
-    st.stop()
+if data_source == "Use GitHub Excel File":
 
-df = pd.read_excel(uploaded)
+    file_path = "EGSA2026_27_Plan_achie.xlsx"
 
+    if os.path.exists(file_path):
+        df = pd.read_excel(file_path)
+        st.sidebar.success("✅ GitHub Excel loaded")
+    else:
+        st.error("❌ EGSA2026_27_Plan_achie.xlsx not found.")
+        st.stop()
+
+else:
+
+    uploaded_file = st.sidebar.file_uploader(
+        "Upload Excel File",
+        type=["xlsx", "xls"]
+    )
+
+    if uploaded_file is not None:
+        df = pd.read_excel(uploaded_file)
+        st.sidebar.success("✅ Uploaded file loaded")
+    else:
+        st.warning("Please upload an Excel file.")
+        st.stop()
 # =============================
 # Clean Columns
 # =============================
