@@ -125,47 +125,42 @@ st.subheader("Member Performance")
 st.dataframe(df, use_container_width=True)
 
 # =============================
+# =============================
 # Summary
 # =============================
-first_plan = df["egsa2026_27_first_half_year_plan"].sum()
-first_ach = df["egsa2026_27_first_half_year_achievement"].sum()
+st.subheader("📊 EGSA 2026/27 Summary Dashboard")
 
-second_plan = df["egsa2026_27_second_half_year_plan"].sum()
-second_ach = df["egsa2026_27_second_half_year_achievement"].sum()
+# ---------- Row 1 ----------
+c1, c2, c3, c4 = st.columns(4)
 
-monthly = df["egsa2026_27_monthly_payment"].sum()
+c1.metric("📅 1st Half Plan", f"{first_plan:,.0f}")
+c2.metric("✅ 1st Half Achievement", f"{first_ach:,.0f}")
+c3.metric("📅 2nd Half Plan", f"{second_plan:,.0f}")
+c4.metric("✅ 2nd Half Achievement", f"{second_ach:,.0f}")
 
-fee = df["fee_charge"].sum()
-saving = df["volentary_saving"].sum()
-benefit = df["benefit_gain"].sum()
-expense = df["expenditure"].sum()
+# ---------- Row 2 ----------
+c5, c6, c7, c8 = st.columns(4)
 
-end_total = df["end_2026_achievement"].sum()
+c5.metric("💵 Monthly Payment", f"{monthly:,.0f}")
+c6.metric("💰 Fee Charge", f"{fee:,.0f}")
+c7.metric("🏦 Voluntary Saving", f"{saving:,.0f}")
+c8.metric("🎁 Benefit Gain", f"{benefit:,.0f}")
 
-annual_total = first_ach + second_ach
+# ---------- Row 3 ----------
+c9, c10, c11 = st.columns(3)
 
-net_total = (
-    end_total
-    + fee
-    + saving
-    + benefit
-    - expense
-)
+c9.metric("💸 Expenditure", f"-{expense:,.0f}")
 
-st.subheader("Summary")
-
-c1,c2,c3,c4,c5 = st.columns(5)
-
-c1.metric("First Half Plan",f"{first_plan:,.0f}")
-c2.metric("Second Half Plan",f"{second_plan:,.0f}")
-c3.metric("Annual Achievement",f"{annual_total:,.0f}")
-c4.metric(
-    "End 2026 Achievement",
+c10.metric(
+    "🏆 End 2026 Achievement",
     f"{end_total:,.0f}",
     delta=f"{end_total-annual_total:,.0f}"
 )
-c5.metric("Net Capital",f"{net_total:,.0f}")
 
+c11.metric(
+    "💎 Net Capital",
+    f"{net_total:,.0f}"
+)
 # =============================
 # Comparison Chart
 # =============================
