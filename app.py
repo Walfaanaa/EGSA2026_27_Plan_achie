@@ -3,24 +3,39 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from io import BytesIO
 
-import os
+iimport os
 import base64
-import streamlit as st
 
 if os.path.exists("EGSA.png"):
-    st.image("EGSA.png", width=180)
+    with open("EGSA.png", "rb") as image_file:
+        logo = base64.b64encode(image_file.read()).decode()
 
-st.markdown(
-    """
-    <h1 style="text-align:center; color:green;">
-        EGSA 2026/27 Management System
-    </h1>
-    <p style="text-align:center; color:gray; font-size:18px;">
-        Planning, Achievement & Performance Dashboard
-    </p>
-    """,
-    unsafe_allow_html=True,
-)
+    st.markdown(
+        f"""
+        <div style="text-align:center;">
+            <img src="data:image/png;base64,{logo}" width="220">
+            <h1 style="color:green; font-size:42px; margin-top:15px; margin-bottom:5px;">
+                EGSA 2026/27 Management System
+            </h1>
+            <p style="color:gray; font-size:20px;">
+                Planning, Achievement & Performance Dashboard
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+else:
+    st.markdown(
+        """
+        <h1 style="text-align:center; color:green; font-size:42px;">
+            EGSA 2026/27 Management System
+        </h1>
+        <p style="text-align:center; color:gray; font-size:20px;">
+            Planning, Achievement & Performance Dashboard
+        </p>
+        """,
+        unsafe_allow_html=True,
+    )
 # =============================
 # Upload Excel
 # =============================
