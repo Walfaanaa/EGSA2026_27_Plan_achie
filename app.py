@@ -3,13 +3,28 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from io import BytesIO
 
-st.set_page_config(
-    page_title="EGSA 2026/27 Management System",
-    layout="wide"
-)
+import os
+import base64
+import streamlit as st
 
-st.title("🏦 EGSA 2026/27 Management System")
+logo_path = "EGSA.png"
 
+if os.path.exists(logo_path):
+    with open(logo_path, "rb") as f:
+        logo = base64.b64encode(f.read()).decode()
+
+    st.markdown(
+        f"""
+        <div style="text-align:center;">
+            <img src="data:image/png;base64,{logo}" width="180">
+            <h1>🏦 EGSA 2026/27 Management System</h1>
+            <p><b>Planning, Achievement & Performance Dashboard</b></p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+else:
+    st.title("🏦 EGSA 2026/27 Management System")
 # =============================
 # Upload Excel
 # =============================
