@@ -1,9 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from  import BytesIO
-
-iimport os
+import os
 import base64
 
 if os.path.exists("EGSA.png"):
