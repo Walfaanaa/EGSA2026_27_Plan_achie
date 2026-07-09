@@ -7,24 +7,20 @@ import os
 import base64
 import streamlit as st
 
-logo_path = "EGSA.png"
+if os.path.exists("EGSA.png"):
+    st.image("EGSA.png", width=180)
 
-if os.path.exists(logo_path):
-    with open(logo_path, "rb") as f:
-        logo = base64.b64encode(f.read()).decode()
-
-    st.markdown(
-        f"""
-        <div style="text-align:center;">
-            <img src="data:image/png;base64,{logo}" width="180">
-            <h1>🏦 EGSA 2026/27 Management System</h1>
-            <p><b>Planning, Achievement & Performance Dashboard</b></p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-else:
-    st.title("🏦 EGSA 2026/27 Management System")
+st.markdown(
+    """
+    <h1 style="text-align:center; color:green;">
+        EGSA 2026/27 Management System
+    </h1>
+    <p style="text-align:center; color:gray; font-size:18px;">
+        Planning, Achievement & Performance Dashboard
+    </p>
+    """,
+    unsafe_allow_html=True,
+)
 # =============================
 # Upload Excel
 # =============================
