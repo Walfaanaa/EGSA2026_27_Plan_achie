@@ -235,33 +235,29 @@ c11.metric(
     f"{net_total:,.0f}"
 )
 # =============================
+# =============================
 # Download Final Report
 # =============================
 
 buffer = BytesIO()
 
-try:
+with pd.ExcelWriter(
+    buffer,
+    engine="xlsxwriter"
+) as writer:
 
-    with pd.ExcelWriter(
-        buffer,
-        engine="openpyxl"
-    ) as writer:
-
-        final_df.to_excel(
-            writer,
-            sheet_name="EGSA2026_27_Report",
-            index=False
-        )
-
-    buffer.seek(0)
-
-    st.download_button(
-        label="📥 Download EGSA 2026/27 Report",
-        data=buffer,
-        file_name="EGSA2026_27_Report.xlsx",
-        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    final_df.to_excel(
+        writer,
+        sheet_name="EGSA2026_27_Report",
+        index=False
     )
 
-except Exception as e:
+buffer.seek(0)
 
-    st.error(f"Excel Export Error: {e}")
+
+st.download_button(
+    label="📥 Download EGSA 2026/27 Report",
+    data=buffer,
+    file_name="EGSA2026_27_Report.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
